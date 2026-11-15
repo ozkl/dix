@@ -1,0 +1,11 @@
+E|directory|5|755|0|0|1794522142|1|2|.|
+E|directory|4|755|0|0|1794522142|1|16|./Système|
+E|directory|3|755|0|0|1794522142|1|17|./Système/Dossier|
+E|regular file|5|644|0|0|1794522142|1|19|./Système/Dossier/x|
+E|regular file|8|644|0|0|1794522142|1|18|./Système/café.txt|
+E|regular file|16384|644|0|0|946684798|1|21|./a|
+E|regular file|3000000|644|0|0|1794522142|1|20|./big.bin|
+M|1b385affd7adb5a6283fef292b5df0f7|./Système/Dossier/x
+M|94baaad4d1347ec6e15ae35c88ee8bc8|./Système/café.txt
+M|98ec60755048d8540df17c2274d2647d|./a
+M|1fb2c0ba3cc53ef508506b96ee00278f|./big.bin

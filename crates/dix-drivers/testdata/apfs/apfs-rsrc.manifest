@@ -1,0 +1,7 @@
+E|directory|0|755|0|0|1794524628|1|2|.|
+E|directory|0|755|0|0|1794524628|1|16|./compressed|
+E|regular file|150000|644|0|0|1794524628|1|19|./compressed/expect-chunks|
+E|regular empty file|0|644|0|0|1794524628|1|17|./compressed/rlzfse.txt|
+M|d1069cbbe54d0c11dce54bbccda88296|./compressed/expect-chunks
+M|d41d8cd98f00b204e9800998ecf8427e|./compressed/rlzfse.txt
+C|d1069cbbe54d0c11dce54bbccda88296|./compressed/rlzfse.txt

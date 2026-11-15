@@ -1,0 +1,10 @@
+E|directory|7|755|0|0|1794522142|1|2|.|
+E|regular file|524288|0|0|0|1794522128|1|16|./.journal|
+E|regular file|4096|0|0|0|1794522127|1|17|./.journal_info_block|
+E|directory|3|755|0|0|1794522142|1|20|./sub|
+E|regular file|16384|644|0|0|1794522142|1|21|./sub/a|
+E|regular file|17|644|0|0|1794522142|1|19|./wrapped.txt|
+M|59071590099d21dd439896592338bf95|./.journal
+M|2c20b992732725679c05585bcdbba0ab|./.journal_info_block
+M|98ec60755048d8540df17c2274d2647d|./sub/a
+M|64bc8b05a0cf461fa4bc1fb6a935e1fb|./wrapped.txt

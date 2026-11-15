@@ -1,0 +1,13 @@
+E|directory|0|755|0|0|1794524628|1|2|.|
+E|directory|0|755|0|0|1794524628|1|18|./Dir|
+E|regular file|2|644|0|0|1794524628|1|20|./Dir/x|
+E|regular file|6|644|0|0|1794524628|1|16|./Name.txt|
+E|regular file|3000000|644|0|0|1794524628|1|22|./big.bin|
+E|directory|0|755|0|0|1794524628|1|19|./dir|
+E|regular file|2|644|0|0|1794524628|1|21|./dir/y|
+E|regular file|6|644|0|0|1794524628|1|17|./name.txt|
+M|401b30e3b8b5d629635a5c613cdb7919|./Dir/x
+M|094cd8a9f8fc80977346f2785e22ff2a|./Name.txt
+M|1fb2c0ba3cc53ef508506b96ee00278f|./big.bin
+M|009520053b00386d1173f3988c55d192|./dir/y
+M|2dd4f9fb69277367a096135d7d1bd439|./name.txt

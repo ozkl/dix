@@ -1,0 +1,13 @@
+[package]
+name = "dix-core"
+description = "Core interfaces of Disk Image Explorer: block devices, file systems, drivers."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+# Not published on crates.io (also keeps it out of THIRD-PARTY-LICENSES.txt).
+publish = false
+
+[dependencies]
+
+[target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dependencies]
+js-sys = "0.3"

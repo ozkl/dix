@@ -1,0 +1,23 @@
+[workspace]
+resolver = "2"
+members = ["crates/dix-core", "crates/dix-drivers", "crates/dix-app"]
+
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/ozkl/dix"
+
+[workspace.dependencies]
+dix-core = { path = "crates/dix-core" }
+# Without its default features: dix-app chooses the drivers (see its features).
+dix-drivers = { path = "crates/dix-drivers", default-features = false }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+
+# Make debug builds of the GUI usable.
+[profile.dev.package."*"]
+opt-level = 2

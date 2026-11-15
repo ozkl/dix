@@ -1,0 +1,56 @@
+[package]
+name = "dix-app"
+description = "Disk Image Explorer – browse and edit file system images."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+# Not published on crates.io (also keeps it out of THIRD-PARTY-LICENSES.txt).
+publish = false
+
+[[bin]]
+name = "disk-image-explorer"
+path = "src/main.rs"
+
+# The drivers built in (all by default). For example, without archives:
+#   cargo build -p dix-app --no-default-features --features ext4,simplefs
+[features]
+default = ["ext4", "fat", "exfat", "ntfs", "hfsplus", "apfs", "xfs", "btrfs", "iso9660", "udf", "squashfs", "littlefs", "simplefs", "vdisk", "archive", "archive-zstd", "archive-bzip2", "archive-xz", "archive-7z", "archive-rar", "archive-aes"]
+ext4 = ["dix-drivers/ext4"]
+fat = ["dix-drivers/fat"]
+exfat = ["dix-drivers/exfat"]
+ntfs = ["dix-drivers/ntfs"]
+hfsplus = ["dix-drivers/hfsplus"]
+apfs = ["dix-drivers/apfs"]
+iso9660 = ["dix-drivers/iso9660"]
+udf = ["dix-drivers/udf"]
+xfs = ["dix-drivers/xfs"]
+btrfs = ["dix-drivers/btrfs"]
+littlefs = ["dix-drivers/littlefs"]
+squashfs = ["dix-drivers/squashfs"]
+simplefs = ["dix-drivers/simplefs"]
+vdisk = ["dix-drivers/vdisk"]
+archive = ["dix-drivers/archive"]
+archive-zstd = ["dix-drivers/archive-zstd"]
+archive-bzip2 = ["dix-drivers/archive-bzip2"]
+archive-xz = ["dix-drivers/archive-xz"]
+archive-7z = ["dix-drivers/archive-7z"]
+archive-rar = ["dix-drivers/archive-rar"]
+archive-aes = ["dix-drivers/archive-aes"]
+
+[dependencies]
+dix-core.workspace = true
+dix-drivers.workspace = true
+eframe = { version = "0.37", default-features = false, features = ["default_fonts", "system_fonts", "glow", "wayland", "x11", "clipboard", "links"] }
+rfd = { version = "0.18" }
+# Decodes the app icon for the welcome screen (eframe's decoder is native only).
+png = "0.18"
+
+# The Windows executable's icon and version information (see build.rs).
+[build-dependencies]
+winresource = { version = "0.1", default-features = false }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = ["Window", "Document", "Element", "HtmlCanvasElement", "HtmlAnchorElement", "Blob", "BlobPropertyBag", "Url", "Event"] }

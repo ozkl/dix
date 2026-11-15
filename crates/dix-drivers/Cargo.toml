@@ -1,0 +1,90 @@
+[package]
+name = "dix-drivers"
+description = "File system drivers for Disk Image Explorer."
+version.workspace = true
+edition = "2024"
+license.workspace = true
+# Not published on crates.io (also keeps it out of THIRD-PARTY-LICENSES.txt).
+publish = false
+
+[dependencies]
+dix-core.workspace = true
+# Archive driver codecs (pure Rust, also build for the browser).
+miniz_oxide = { version = "0.8", optional = true }
+lzma-rs = { version = "0.3", optional = true }
+# LZMA2 compression for writing 7z (a port of XZ for Java).
+lzma-rust2 = { version = "0.25", optional = true, default-features = false, features = ["std", "encoder"] }
+ruzstd = { version = "0.8", optional = true }
+bzip2 = { version = "0.6", optional = true }
+# HFS+ keeps names decomposed (NFD); they are shown composed (NFC).
+unicode-normalization = { version = "0.1", optional = true, default-features = false }
+# WinZip AES encryption in zip (RustCrypto, pure Rust).
+aes = { version = "0.8", optional = true }
+hmac = { version = "0.12", optional = true }
+sha1 = { version = "0.10", optional = true }
+sha2 = { version = "0.10", optional = true }
+pbkdf2 = { version = "0.12", optional = true, default-features = false, features = ["hmac"] }
+
+# Which drivers (and archive codecs) are built in. Everything by default;
+# pick a subset with e.g.
+#   cargo build -p dix-app --no-default-features --features ext4,archive
+[features]
+default = ["ext4", "fat", "exfat", "ntfs", "hfsplus", "apfs", "xfs", "btrfs", "iso9660", "udf", "squashfs", "littlefs", "simplefs", "vdisk", "archive", "archive-zstd", "archive-bzip2", "archive-xz", "archive-7z", "archive-rar", "archive-aes"]
+# ext2/3/4 (read-write, journal, mkfs, fsck).
+ext4 = []
+# FAT12/16/32 (read-write, long names, mkfs, check).
+fat = []
+# exFAT (read-write, mkfs, check), in the FAT driver.
+exfat = ["fat"]
+# NTFS, read-only (compressed and sparse files, streams, links, check).
+ntfs = []
+# HFS+, HFSX and HFS (Mac OS Extended / Standard), read-only; files
+# compressed by macOS (zlib via miniz_oxide, LZVN, LZFSE).
+hfsplus = ["dep:miniz_oxide", "dep:unicode-normalization"]
+# APFS, read-only; files compressed by macOS as with HFS+.
+apfs = ["dep:miniz_oxide", "dep:unicode-normalization"]
+# ISO 9660 CD/DVD images, read-only (Rock Ridge, Joliet, El Torito; zisofs via miniz_oxide).
+iso9660 = ["dep:miniz_oxide"]
+udf = []
+# XFS (v4 and v5), read-only.
+xfs = []
+# Btrfs, read-only: subvolumes and snapshots; zlib (miniz_oxide), LZO and zstd (ruzstd) compression.
+btrfs = ["dep:miniz_oxide", "dep:ruzstd"]
+littlefs = []
+squashfs = ["dep:miniz_oxide", "dep:lzma-rs", "dep:lzma-rust2", "lzma-rust2/xz", "dep:ruzstd"]
+# Virtual machine disks: qcow2, VHD, VHDX, VMDK, VDI (deflate via miniz_oxide).
+vdisk = ["dep:miniz_oxide"]
+# SimpleFS, the tiny test file system.
+simplefs = []
+# zip and tar, plain or gzip-compressed (miniz_oxide).
+archive = ["dep:miniz_oxide"]
+# AES encryption: zip (WinZip AES, as 7-Zip and WinZip write), 7z and RAR 5
+# archives with a password. The classic ZipCrypto needs nothing: it is
+# always in.
+archive-aes = ["archive", "dep:aes", "dep:hmac", "dep:sha1", "dep:sha2", "dep:pbkdf2"]
+# .tar.zst (ruzstd).
+archive-zstd = ["archive", "dep:ruzstd"]
+# .tar.bz2 (bzip2 with the pure-Rust libbz2-rs-sys backend).
+archive-bzip2 = ["archive", "dep:bzip2"]
+# .tar.xz and .cpio.xz (read with lzma-rs, written with lzma-rust2).
+archive-xz = ["archive", "dep:lzma-rs", "dep:lzma-rust2", "lzma-rust2/xz"]
+# 7z (LZMA/LZMA2 via lzma-rs; written with LZMA2 via lzma-rust2).
+archive-7z = ["archive", "dep:lzma-rs", "dep:lzma-rust2"]
+# RAR 5 (and RAR 4 stored files), read-only.
+archive-rar = ["archive"]
+
+[[example]]
+name = "mkfs"
+required-features = ["ext4"]
+
+[[example]]
+name = "make_sample"
+required-features = ["simplefs"]
+
+[[example]]
+name = "rar_bench"
+required-features = ["archive-rar"]
+
+[[example]]
+name = "make_large"
+required-features = ["simplefs"]
